@@ -19,6 +19,7 @@ const useSimpleAuth = () => {
             .then(res => res.json())
             .then(res => {
                 if ("token" in res) {
+                    console.log(res)
                     localStorage.setItem("smallconnections_token", res.token)
                     setIsLoggedIn(true)
                 }
