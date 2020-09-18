@@ -5,9 +5,9 @@ import dataManager from '../../modules/dataManager'
 const MemberDetail = props => {
     
     const [member, setMember] = useState({user:{}})
-
+    console.log(props)
     const getMember = () => {
-        dataManager.get("members", props.memberId)
+        dataManager.get("members", props.match.params.memberId)
         .then((response) => {
             setMember(response)
         })

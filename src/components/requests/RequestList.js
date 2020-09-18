@@ -20,9 +20,13 @@ const RequestList = props => {
     }, [toggle])
 
     return (
+        <div>
+        {props.toggle? null:
         <div className= 'RequestsList'>
             <h1>Current Requests</h1>
             {requests.map((request)=> (<RequestCard key={request.id} request={request} toggle={toggle} setToggle={setToggle}/>))}
+        </div>
+        }       
         </div>
     )
 }

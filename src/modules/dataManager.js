@@ -34,6 +34,17 @@ export default {
             body: JSON.stringify(editedObject)
         })
     },
+    create(collection, editedObject){
+        return fetch(`${remoteURL}/${collection}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": `Token ${localStorage.getItem("smallconnections_token")}`
+            },
+            body: JSON.stringify(editedObject)
+        })
+    },
     delete(collection, id){
         return fetch(`${remoteURL}/${collection}/${id}`, {
             method: "DELETE",

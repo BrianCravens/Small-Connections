@@ -1,9 +1,9 @@
 import { useState } from "react"
 
 const useSimpleAuth = () => {
-
-    const [loggedIn, setIsLoggedIn] = useState(false)
-
+    
+    const [loggedIn, setIsLoggedIn] = useState(false);
+    
     const isAuthenticated = () =>
         loggedIn || localStorage.getItem("smallconnections_token") !== null
 
@@ -38,7 +38,8 @@ const useSimpleAuth = () => {
             .then(res => res.json())
             .then(res => {
                 if ("valid" in res && res.valid && "token" in res) {
-                    localStorage.setItem("smallconnections_token", res.token)
+                    localStorage.setItem("smallconnections_token", res.token, "user", res.user)
+                    localStorage.setItem("user", res.user)
                     setIsLoggedIn(true)
                 }
             })
@@ -47,6 +48,7 @@ const useSimpleAuth = () => {
     const logout = () => {
         setIsLoggedIn(false)
         localStorage.removeItem("smallconnections_token")
+        localStorage.removeItem("user")
     }
 
     return { isAuthenticated, logout, login, register }

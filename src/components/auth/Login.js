@@ -1,6 +1,7 @@
 import React, { useRef } from "react"
 import "./Login.css"
 import useSimpleAuth from "../../hooks/ui/useSimpleAuth"
+import { Link } from "react-router-dom"
 
 
 const Login = props => {
@@ -30,6 +31,8 @@ const Login = props => {
     }
 
     return (
+        <div>
+            {props.toggle? null:
         <main style={{ textAlign: "center" }}>
             <form className="form--login" onSubmit={handleLogin}>
                 <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
@@ -52,9 +55,12 @@ const Login = props => {
                     <button type="submit">
                         Sign in
                     </button>
+                    <Link to="/register">Create Account</Link>
                 </fieldset>
             </form>
         </main>
+        }       
+        </div>
     )
 }
 export default Login
