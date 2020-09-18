@@ -28,6 +28,8 @@ const GroupDetail = props => {
 
     return(
         <>
+            <div>
+            {props.toggle? null:
             <div className="group-details">
                 <div className="group-picture-container">
                     <img className="group-picture" alt="Group"  src={group.image}/>
@@ -39,6 +41,8 @@ const GroupDetail = props => {
                         <h3>Schedule: {group.schedule}</h3>
                         <h3>Kids: {kids? "YES" : "NO"}</h3>
                 </div>
+            </div>
+            }       
             </div>
         </>
     )

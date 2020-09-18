@@ -34,7 +34,7 @@ const RequestCard = props => {
         <div className='request-card'>
             <div className='request-card-content'>
                 <Link to = {detailsLink}>
-                <img src={props.request.member.image} height={200} width={240} alt={props.request.member.id} />
+                <img src={props.request.member.image} alt={props.request.member.id} />
                 <p>{props.request.member.user.first_name} {props.request.member.user.last_name}</p>
                 </Link>
                 <button id= {`Accept-${props.request.member.id}`} disabled={isLoading}onClick={()=>handleUpdate(props.request.id)}>Accept</button>

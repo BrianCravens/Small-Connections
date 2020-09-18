@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MemberCard from './MemberCard';
 import dataManager from '../../modules/dataManager'
+import './Member.css'
 
 const MemberList = props => {
     
@@ -21,7 +22,9 @@ const MemberList = props => {
     return (
         <div className= 'MembersList'>
             <h1>Members</h1>
+            <div className= 'member-card-container'>
             {members.map((member)=> (<MemberCard key={member.id} member={member}/>))}
+            </div>
         </div>
     )
 }

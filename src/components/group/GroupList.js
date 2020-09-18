@@ -3,9 +3,8 @@ import GroupCard from './GroupCard';
 import dataManager from '../../modules/dataManager'
 
 const GroupList = props => {
-    
     const [groups, setGroups] = useState([]);
-
+    
     const getGroups = () =>{
         return dataManager.getAll('groups')
             .then((groups)=> {
@@ -19,10 +18,15 @@ const GroupList = props => {
     }, [])
 
     return (
-        <div className= 'GroupsList'>
+        
+            <div>
+            {props.toggle? null:
+            <div className= 'GroupsList'>
             <h1>Groups</h1>
             {groups.map((group)=> (<GroupCard key={group.id} group={group}/>))}
-        </div>
+            </div>
+            }       
+            </div>
     )
 }
 export default GroupList
