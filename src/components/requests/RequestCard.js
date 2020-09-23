@@ -1,11 +1,14 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Link } from "react-router-dom";
 import dataManager from '../../modules/dataManager'
 
 const RequestCard = props => {
 
     const [isLoading, setIsLoading] = useState(false)
+    const [memberGroups, setMemberGroups] = useState([])
+    const [membergroup, setMemberGroup] = useState(false);
     const detailsLink = `/members/${props.request.member.id}`
+
     
     const handleDelete = (id) => {
         setIsLoading(true)
@@ -15,9 +18,32 @@ const RequestCard = props => {
             props.setToggle(!props.toggle)
         })
     }
-
+    const getMemberGroup = () => {
+        dataManager.getAll('membergroups/listall')
+        .then((groups) => {
+            setMemberGroups(groups)
+        })
+    }
+    const checkMember = () => {
+        memberGroups.map((member)=>{
+            if(props.request.member.id === member.member.id){
+                console.log ('set to true!')
+                setMemberGroup(true)
+            }
+        })
+    }
+   
     const handleUpdate = (id) => {
         setIsLoading(true)
+        console.log(membergroup)
+        if(membergroup === true){
+            alert('Member already joined a group')
+            dataManager.delete('membergroups', props.request.id)
+            .then(() => {
+                setIsLoading(false)
+                props.setToggle(!props.toggle)
+            })
+        }else{
         const updateRequest = {
             id: id,
             is_approved: true
@@ -26,8 +52,14 @@ const RequestCard = props => {
         .then(() => {
             setIsLoading(false)
             props.setToggle(!props.toggle)
-        })
+        })}
     }
+    useEffect(()=>{
+        getMemberGroup()
+    },[])
+    useEffect(()=>{
+        checkMember()
+    },[memberGroups])
 
 
     return(
@@ -37,7 +69,9 @@ const RequestCard = props => {
                 <img src={props.request.member.image} alt={props.request.member.id} />
                 <p>{props.request.member.user.first_name} {props.request.member.user.last_name}</p>
                 </Link>
+                {membergroup === true?null:
                 <button id= {`Accept-${props.request.member.id}`} disabled={isLoading}onClick={()=>handleUpdate(props.request.id)}>Accept</button>
+                }
                 <button id= {`Deny-${props.request.member.id}`} disabled={isLoading} onClick={()=>handleDelete(props.request.id)}>Deny</button>
             </div>
         </div>

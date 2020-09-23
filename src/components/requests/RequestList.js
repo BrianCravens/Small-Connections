@@ -15,6 +15,7 @@ const RequestList = props => {
             .catch((err) => console.error('There was an issue with getting all requests:', err))
         
     }
+   
     useEffect(() =>{
         getRequests();
     }, [toggle])
