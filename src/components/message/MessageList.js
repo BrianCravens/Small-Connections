@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import MessageCard from './MessageCard';
 import dataManager from '../../modules/dataManager'
 import currentUser from "../../hooks/ui/useSimpleAuth"
-import { Link } from 'react-router-dom';
 
 
 const MessageList = props => {
@@ -14,11 +13,11 @@ const MessageList = props => {
 
     
 
-    const getRequests = () =>{
+    const getMessages = () =>{
         return dataManager.getAll('messages')
             .then((messages)=> {
-                setMessages(messages);
                 console.log(messages)
+                setMessages(messages);
             })
             .catch((err) => console.error('There was an issue with getting all messages:', err))
             
@@ -26,7 +25,6 @@ const MessageList = props => {
 
     const handleFieldChange = (event) =>{
         const stateToChange = {...text}
-        console.log(event.target)
         stateToChange[event.target.id]=event.target.value;
         setText(stateToChange) 
     }
@@ -37,31 +35,36 @@ const MessageList = props => {
             id: text.id,
             description: text.description
         }
-        if (text.description == undefined){setIsLoading(false)}
+        if (text.description === undefined){setIsLoading(false)}
             else if (text.id !=null){
             dataManager.update('messages', editedMessage)
             .then(() => {
                 setIsLoading(false)
                 setText()
                 setToggle(!toggle)
-            })}else{
+            })
+            .catch((err) => console.error('There was an issue with updating message:', err))
+        }else{
                 dataManager.create('messages', editedMessage)
                 .then(() => {
                     setIsLoading(false)
                     setText()
-                    setToggle(!toggle)
-                })    
+                    // setToggle(!toggle)
+                })
+                .catch((err) => console.error('There was an issue with creating message:', err))   
 
             }
     }
-
-     useEffect(() =>{
-        getRequests();
-    }, [toggle])
+    
+    useEffect(() =>{
+        getMessages();
+    }, [text])
 
     useEffect(() =>{
-        console.log(currentUser)
-    }, [messages])
+        getMessages();
+    }, [toggle])
+
+
 
     return (
         <div>

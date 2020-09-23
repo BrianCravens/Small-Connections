@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 import useSimpleAuth from '../hooks/ui/useSimpleAuth'
@@ -34,6 +34,14 @@ const NavBar = props => {
                     {isAuthenticated()? 
                     <li>
                         <Link onClick={()=>props.setToggle(!props.toggle)} className='nav-link' to="/messages">Messages</Link>
+                    </li>:null}
+                    {isAuthenticated()? 
+                    <li>
+                        <Link onClick={()=>props.setToggle(!props.toggle)} className='nav-link' to="/prayers">Prayer Requests</Link>
+                    </li>:null}
+                    {isAuthenticated()? 
+                    <li>
+                        <Link onClick={()=>props.setToggle(!props.toggle)} className='nav-link' to="/meetings">Meetings</Link>
                     </li>:null}
                     {isAuthenticated()? null:
                     <li>
