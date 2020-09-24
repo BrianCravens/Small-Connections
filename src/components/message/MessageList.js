@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import {Button} from 'react-bootstrap'
 import MessageCard from './MessageCard';
 import dataManager from '../../modules/dataManager'
-import currentUser from "../../hooks/ui/useSimpleAuth"
-
+import './Message.css'
 
 const MessageList = props => {
     
@@ -75,7 +75,7 @@ const MessageList = props => {
             {messages.map((message, idx)=> (<MessageCard setText={setText} key={idx} message={message} toggle={toggle} setToggle={setToggle}/>))}
             
         <textarea id='description' value={text?text.description:""} onChange={handleFieldChange} className='message-textarea' type='text' placeholder='Enter Message'></textarea>
-            <button onClick={handleEdit} disabled={isLoading} className='send-message'>Send</button>
+            <Button onClick={handleEdit} disabled={isLoading} className='send-message'>Send</Button>
         </div>
         }       
         </div>

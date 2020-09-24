@@ -6,6 +6,7 @@ import { FaAlignJustify } from 'react-icons/fa'
 
 const NavBar = props => {
     const { isAuthenticated, logout } = useSimpleAuth()
+    const inGroup = props.inGroup
     
 
     
@@ -19,11 +20,11 @@ const NavBar = props => {
             {props.toggle?
                 <nav className="nav-overlay">
                     <ul className="nav-container">
-                     {isAuthenticated()?   
+                     {isAuthenticated() && inGroup ?   
                     <li>
                         <Link onClick={()=>props.setToggle(!props.toggle)} className='nav-link' to="/members" >Members</Link>
                     </li>:null}
-                    {isAuthenticated()? 
+                    {isAuthenticated() && inGroup ? 
                     <li>
                         <Link onClick={()=>props.setToggle(!props.toggle)} className='nav-link' to="/membergroups">Requests</Link>
                     </li>:null}
@@ -31,15 +32,15 @@ const NavBar = props => {
                     <li>
                         <Link onClick={()=>props.setToggle(!props.toggle)} className='nav-link' to="/groups">Groups</Link>
                     </li>:null}
-                    {isAuthenticated()? 
+                    {isAuthenticated() && inGroup ? 
                     <li>
                         <Link onClick={()=>props.setToggle(!props.toggle)} className='nav-link' to="/messages">Messages</Link>
                     </li>:null}
-                    {isAuthenticated()? 
+                    {isAuthenticated() && inGroup ? 
                     <li>
                         <Link onClick={()=>props.setToggle(!props.toggle)} className='nav-link' to="/prayers">Prayer Requests</Link>
                     </li>:null}
-                    {isAuthenticated()? 
+                    {isAuthenticated() && inGroup ? 
                     <li>
                         <Link onClick={()=>props.setToggle(!props.toggle)} className='nav-link' to="/meetings">Meetings</Link>
                     </li>:null}

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import {Button} from 'react-bootstrap'
 import GroupCard from './GroupCard';
 import dataManager from '../../modules/dataManager'
+import './Group.css'
+
 
 const GroupList = props => {
     const [groups, setGroups] = useState([]);
@@ -91,11 +93,12 @@ const GroupList = props => {
             {props.toggle? null:
 
             <div className= 'GroupsList'>
-            <h1>Groups</h1>
-            
-            {toggle && !inGroup?<Button onClick={()=>(props.history.push("/group"))}>Add Group</Button>:null}
-           
-            {groups.map((group)=> (<GroupCard key={group.id} group={group}/>))}
+                <h1>Groups</h1>
+                
+                {toggle && !inGroup?<Button onClick={()=>(props.history.push("/group"))}>Add Group</Button>:null}
+                <div className= 'group-card-container'>
+                {groups.map((group)=> (<GroupCard key={group.id} group={group}/>))}
+                </div>
             </div>
             }       
             </div>

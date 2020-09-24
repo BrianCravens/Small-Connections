@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import { Link } from "react-router-dom";
+import {Button} from 'react-bootstrap'
 import dataManager from '../../modules/dataManager'
+import './Request.css'
 
 const RequestCard = props => {
 
@@ -64,16 +66,16 @@ const RequestCard = props => {
 
     return(
         <div className='request-card'>
+            <Link to = {detailsLink}>
             <div className='request-card-content'>
-                <Link to = {detailsLink}>
                 <img src={props.request.member.image} alt={props.request.member.id} />
-                <p>{props.request.member.user.first_name} {props.request.member.user.last_name}</p>
-                </Link>
+                <div className="request-name">{props.request.member.user.first_name} {props.request.member.user.last_name}</div>
                 {membergroup === true?null:
-                <button id= {`Accept-${props.request.member.id}`} disabled={isLoading}onClick={()=>handleUpdate(props.request.id)}>Accept</button>
+                <Button className='btn-success' id= {`Accept-${props.request.member.id}`} disabled={isLoading}onClick={()=>handleUpdate(props.request.id)}>Accept</Button>
                 }
-                <button id= {`Deny-${props.request.member.id}`} disabled={isLoading} onClick={()=>handleDelete(props.request.id)}>Deny</button>
+                <Button className='btn-danger' disabled={isLoading} onClick={()=>handleDelete(props.request.id)}>Deny</Button>
             </div>
+            </Link>
         </div>
         
     )
