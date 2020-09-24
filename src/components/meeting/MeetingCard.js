@@ -10,8 +10,9 @@ const MeetingCard = props => {
         <div className='meeting-card'>
             <div className='meeting-card-content'>
                 <img src={props.meeting.image} alt={props.meeting.id} />
-                <Link className='meeting-name' to = {detailsLink}>
-                <p>{props.meeting.title}</p>
+                <Link className='meeting-link' to = {detailsLink}>
+                <div className='meeting-title'>{props.meeting.title}</div>
+                <div className='meeting-date'>{props.meeting.date}</div>
                 </Link>
             </div>
         </div>

@@ -8,12 +8,12 @@ const MyMembersCard = props => {
     
     return(
         <div className='member-card'>
+            <Link className='member-link' to = {detailsLink}>
             <div className='member-card-content'>
                 <img src={props.member.member.image} alt={props.member.member.id} />
-                <Link className='member-name' to = {detailsLink}>
-                <p>{props.member.member.user.first_name} {props.member.member.user.last_name}</p>
-                </Link>
+                <div className='member-name'>{props.member.member.user.first_name} {props.member.member.user.last_name}</div>
             </div>
+            </Link>
         </div>
     )
 }

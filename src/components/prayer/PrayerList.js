@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import {Button} from 'react-bootstrap'
 import PrayerCard from './PrayerCard';
 import dataManager from '../../modules/dataManager'
-import currentUser from "../../hooks/ui/useSimpleAuth"
+import './Prayer.css'
 
 
 const MessageList = props => {
@@ -9,7 +10,7 @@ const MessageList = props => {
     const [prayers, setPrayers] = useState([]);
     const [toggle, setToggle] = useState(false);
     const [isLoading, setIsLoading] = useState(false)
-    const [text, setText] = useState({})
+    const [text, setText] = useState({id: null, description: undefined})
 
     
 
@@ -30,19 +31,22 @@ const MessageList = props => {
     const handleEdit = (e) =>{
         e.preventDefault()
         setIsLoading(true)
-        const editedMessage = {
-            id: text.id,
-            description: text.description
-        }
         if (text.description === undefined){setIsLoading(false)}
-            else if (text.id !=null){
+        else if (text.id !=null){
+            const editedMessage = {
+                id: text.id,
+                description: text.description
+            }
             dataManager.update('prayers', editedMessage)
             .then(() => {
                 setIsLoading(false)
                 setText()
                 setToggle(!toggle)
             })}else{
-                dataManager.create('prayers', editedMessage)
+                const newMessage = {
+                    description: text.description
+                }
+                dataManager.create('prayers', newMessage)
                 .then(() => {
                     setIsLoading(false)
                     setText()
@@ -65,7 +69,7 @@ const MessageList = props => {
             {prayers.map((prayer, idx)=> (<PrayerCard setText={setText} key={idx} prayer={prayer} toggle={toggle} setToggle={setToggle}/>))}
             
         <textarea id='description' value={text?text.description:""} onChange={handleFieldChange} className='prayer-textarea' type='text' placeholder='Enter Message'></textarea>
-            <button onClick={handleEdit} disabled={isLoading} className='send-prayer'>Send</button>
+            <Button onClick={handleEdit} disabled={isLoading} className='send-prayer'>Send</Button>
         </div>
         }       
         </div>

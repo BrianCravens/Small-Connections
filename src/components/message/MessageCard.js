@@ -1,5 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
+import {Button} from 'react-bootstrap'
 import dataManager from '../../modules/dataManager'
+import './Message.css'
+
 
 const MessageCard = props => {
 
@@ -26,13 +29,13 @@ const MessageCard = props => {
         <div className='message-card'>
             <div onClick={()=>props.setText(myStuff)}  className='message-card-content'>
                 <img src={props.message.member.image} alt={props.message.member.id} />
-                <p>{props.message.member.user.first_name} {props.message.member.user.last_name}</p>
-                <p>{props.message.description}</p>
-                <p>{props.message.date}</p>
+                <div className = 'message-name'>{props.message.member.user.first_name} {props.message.member.user.last_name}</div>
                 {currentUser===props.message.member.id  || currentUser===props.message.group.leader.id?
-                <button id= {`Deny-${props.message.member.id}`} disabled={isLoading} onClick={()=>handleDelete(props.message.id)}>Delete</button>
+                <Button id= {`Deny-${props.message.member.id}`} disabled={isLoading} onClick={()=>handleDelete(props.message.id)}>Delete</Button>
                 :null}
             </div>
+                <p>{props.message.description}</p>
+                <div>{props.message.date}</div>
         </div>
         
     )

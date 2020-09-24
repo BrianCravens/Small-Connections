@@ -1,8 +1,9 @@
 import { Route, Redirect } from "react-router-dom"
-import React, { useState } from "react"
+import React, { useState, useEffect} from "react"
 import { withRouter } from "react-router-dom"
 import Register from "./auth/Register"
 import Login from "./auth/Login"
+import dataManager from '../modules/dataManager'
 import useSimpleAuth from "../hooks/ui/useSimpleAuth"
 import currentUser from "../hooks/ui/useSimpleAuth"
 import MemberList from '../components/member/MemberList'
@@ -20,13 +21,37 @@ import GroupForm from '../components/group/GroupForm'
 
 
 const ApplicationViews = props => {
-    const user = currentUser
+    const [memberGroups, setMemberGroups] = useState([{member:{}}])
+    const [inGroup, setInGroup] = useState(false)
+    const currentUser = parseInt(localStorage.getItem("user"));
     const [toggle, setToggle] = useState(false)
     const { isAuthenticated } = useSimpleAuth() 
 
+    const getMemberGroups = () =>{
+        return dataManager.getAll('membergroups/listall')
+            .then((membergroups)=> {
+                setMemberGroups(membergroups);
+            })
+            .catch((err) => console.error('There was an issue with getting all groups:', err))
+        
+    }
+    const isInGroup = () => {
+        memberGroups.map(group=>{
+            if (parseInt(group.member.id) === currentUser&&group.is_approved===true){
+                setInGroup(true)
+            }
+        })
+    }
+    useEffect(() => {
+        getMemberGroups();
+    }, [])
+    useEffect(() => {
+        isInGroup();
+    }, [memberGroups])
+
     return(
         <React.Fragment>
-            <NavBar toggle={toggle} setToggle={setToggle}{...props} />
+            <NavBar toggle={toggle} inGroup={inGroup} setToggle={setToggle}{...props} />
             <Route
                 exact path="/register" render={props => {
                     return <Register toggle={toggle} {...props} />
@@ -49,10 +74,10 @@ const ApplicationViews = props => {
             />
             <Route
                 exact path="/members/:memberId(\d+)" render={props => {
-                    if(isAuthenticated()){
+                    if(isAuthenticated() && inGroup){
                     return <MemberDetail toggle={toggle}{...props} memberId={parseInt(props.match.params.memberId)} />
                     }else{
-                    return <Redirect to='login'/>}
+                    return <Redirect to='groups'/>}
                 }}
             />
             <Route
@@ -74,65 +99,65 @@ const ApplicationViews = props => {
             <Route
                 exact path="/group" render={props => {
                     if(isAuthenticated()){
-                    return <GroupForm toggle={toggle} currentUser={user} {...props} />
+                    return <GroupForm toggle={toggle} currentUser={currentUser} {...props} />
                     }else{
                     return <Redirect to='login'/>}
                 }}
             />
             <Route
                 exact path="/membergroups" render={props => {
-                    if(isAuthenticated()){
+                    if(isAuthenticated() && inGroup){
                     return <RequestList toggle={toggle} {...props} />
                     }else{
-                    return <Redirect to='login'/>}
+                    return <Redirect to='groups'/>}
                 }}
             />
             <Route
                 exact path="/messages" render={props => {
                     if(isAuthenticated()){
-                    return <MessageList toggle={toggle} currentUser={user} {...props} />
+                    return <MessageList toggle={toggle} currentUser={currentUser} {...props} />
                     }else{
-                    return <Redirect to='login'/>}
+                    return <Redirect to='groups'/>}
                 }}
             />
             <Route
                 exact path="/prayers" render={props => {
-                    if(isAuthenticated()){
-                    return <PrayerList toggle={toggle} currentUser={user} {...props} />
+                    if(isAuthenticated() && inGroup){
+                    return <PrayerList toggle={toggle} currentUser={currentUser} {...props} />
                     }else{
-                    return <Redirect to='login'/>}
+                    return <Redirect to='groups'/>}
                 }}
             />
             <Route
                 exact path="/meetings" render={props => {
-                    if(isAuthenticated()){
-                    return <MeetingList toggle={toggle} currentUser={user} {...props} />
+                    if(isAuthenticated() && inGroup){
+                    return <MeetingList toggle={toggle} currentUser={currentUser} {...props} />
                     }else{
-                    return <Redirect to='login'/>}
+                    return <Redirect to='groups'/>}
                 }}
             />
              <Route
                 exact path="/meetings/:meetingId(\d+)" render={props => {
-                    if(isAuthenticated()){
+                    if(isAuthenticated() && inGroup){
                     return <MeetingDetail toggle={toggle}{...props} meetingId={parseInt(props.match.params.meetingId)} />
                     }else{
-                    return <Redirect to='login'/>}
+                    return <Redirect to='groups'/>}
                 }}
             />
              <Route
                 exact path="/meeting" render={props => {
-                    if(isAuthenticated()){
-                    return <MeetingForm toggle={toggle} currentUser={user} {...props} />
+                    if(isAuthenticated() && inGroup){
+                    return <MeetingForm toggle={toggle} currentUser={currentUser} {...props} />
                     }else{
-                    return <Redirect to='login'/>}
+                    return <Redirect to='groups'/>}
                 }}
             />
             <Route
                 exact path="/" render={props => {
-                    if(isAuthenticated()){
-                    return <MessageList toggle={toggle} currentUser={user} {...props} />
+                    if(isAuthenticated() && inGroup){
+                    return <MessageList toggle={toggle} currentUser={currentUser} {...props} />
                     }else{
-                    return <Redirect to='login'/>}
+                    return <Redirect to='messages'/>}
                 }}
             />
         </React.Fragment>

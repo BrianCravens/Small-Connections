@@ -24,7 +24,6 @@ const MeetingList = props => {
     const checkLeader = () => {
         setIsLeader(false)
         groups.map(group=>{
-            console.log(group)
             if (parseInt(group.leader.id) === currentUser){
                 setIsLeader(true)
             }
@@ -51,13 +50,13 @@ const MeetingList = props => {
 
     return (
         <div className= 'MeetingsList'>
-            {isLeader?
-            <Button onClick={()=>(props.history.push('/meeting'))}>Add Meeting</Button>
-            :null}
             <h1>Meetings</h1>
             <div className= 'meeting-card-container'>
             {meetings.map((meeting)=> (<MeetingCard key={meeting.id} meeting={meeting}/>))}
             </div>
+            {isLeader?
+            <Button onClick={()=>(props.history.push('/meeting'))}>Add Meeting</Button>
+            :null}
         </div>
     )
 }

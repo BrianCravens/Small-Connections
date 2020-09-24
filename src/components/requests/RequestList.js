@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RequestCard from './RequestCard';
 import dataManager from '../../modules/dataManager'
+import './Request.css'
 
 const RequestList = props => {
     

@@ -11,7 +11,7 @@ const MemberCard = props => {
             <div className='member-card-content'>
                 <img src={props.member.image} alt={props.member.id} />
                 <Link className='member-name' to = {detailsLink}>
-                <p>{props.member.user.first_name} {props.member.user.last_name}</p>
+                <div className='member-name'>{props.member.user.first_name} {props.member.user.last_name}</div>
                 </Link>
             </div>
         </div>

@@ -1,25 +1,25 @@
-.MembersList{
+.PrayersList{
     display: flex;
     flex-direction: column;
 
 }
-.MembersList h1{
+.PrayersList h1{
     flex: 100%;
     text-align: center;
 }
-.member-card-container{
+.prayer-card-container{
     flex-basis: 90%;
 }
-.member-card-content{
+.prayer-card-content{
     display:flex;
-    flex-direction: row;
+    flex-direction: row wrap;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
-.member-card{
+.prayer-card{
     color: black;
-    background-color:rgb(90, 166, 236);
+    background-color:rgb(159, 204, 246);
     text-decoration: none;
     font-size: 15px;
     text-align: center;
@@ -29,18 +29,21 @@
     border-radius: 10px;
     padding-left: none;
 }
-.member-card img{
+.prayer-card img{
     flex-basis: 15%;
-    height: 70px;
-    width: 70px;
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
 }
-.member-name{
-    flex-basis:75%;
+.prayer-card button{
+    background-color: rgb(241, 97, 126);
+}
+.prayer-name{
+    flex-basis:100%;
     color: rgb(12, 12, 12);
     align-content: center;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: none;
     font-family: "Arial Black", Gadget, sans-serif;
 }
