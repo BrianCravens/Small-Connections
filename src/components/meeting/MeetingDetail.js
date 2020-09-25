@@ -63,6 +63,8 @@ const MeetingDetail = props => {
             {toggle?
             
             <Form>
+                                    <h1>Edit Meeting</h1>
+                    <div className='form-container'>
                     <Form.Group >
                     <Form.Label htmlFor='form-title'>Title: </Form.Label>
                     <Form.Control id='title' type="text" onChange={handleFieldChange}  placeholder='Title' defaultValue={meeting.title} className='form-title'/>
@@ -85,30 +87,44 @@ const MeetingDetail = props => {
 
                     <Form.Control type='text' id='image' onChange={handleFieldChange} placeholder='Image' defaultValue={meeting.image} className='form-image'/>
                     </Form.Group>
+
+                    <div className='form-button-container'>
                     <Form.Group controlId="form-meeting">
+
                     <Button onClick={()=>setToggle(!toggle)}>Back</Button>
                     </Form.Group>
                     <Form.Group controlId="form-meeting">
-                    <Button onClick={handleEdit}>Submit</Button>
+                    <Button className='btn-success' onClick={handleEdit}>Submit</Button>
                     </Form.Group>
+                    </div>
+                    </div>
 
             </Form>
             :
             <div className="meeting-details">
-                <h1>{meeting.title}</h1>
-                <div className="meeting-picture-container">
-                    <img className="meeting-picture" alt="Meeting-img"  src={meeting.image}/>
-                </div>
-                <div className="meeting-info">
-                    <h2>{meeting.date}</h2>
-                    <h2>Leader: {meeting.member.user.first_name} {meeting.member.user.last_name}</h2>
-                    <a href={meeting.url}>Link to Message</a>
-                    <p>{meeting.content}</p>
-                    <div className="button-container">
-                        <button onClick={()=>{handleDelete(meeting.id)}}>Delete</button>
-                        <button onClick={()=>setToggle(!toggle)}>Edit</button>
+                <div className='meeting-info'>
+                    <div className="meeting-picture-container">
+                        <img className="meeting-picture" alt="Meeting-img"  src={meeting.image}/>
+                    </div>
+                    <div className="details">
+                        <h1>{meeting.title}</h1>
+
+                        <label htmlFor='date'>Date:</label>
+                        <div name='date'>{meeting.date}</div>
+
+                        <label htmlFor='leader'>Leader:</label>
+                        <div name='leader'>{meeting.member.user.first_name} {meeting.member.user.last_name}</div>
+
+                        <div><a href={meeting.url}>Link to Message</a></div>
+
+                        <label htmlFor='content'>Content:</label>
+                        <div name='content'>{meeting.content}</div>
                     </div>
                 </div>
+                    <div className="meeting-button-container">
+                        <Button className='btn-danger' onClick={()=>{handleDelete(meeting.id)}}>Delete</Button>
+                        <Button className='btn-primary'onClick={()=>setToggle(!toggle)}>Edit</Button>
+                    </div>
             </div>
             }
             

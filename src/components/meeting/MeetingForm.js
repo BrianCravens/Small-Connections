@@ -1,6 +1,7 @@
 import {Form, Button} from 'react-bootstrap'
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import dataManager from '../../modules/dataManager'
+import './Meeting.css'
 
 const MeetingForm = props => {
     const [meeting, setMeeting] = useState({"date": "", "content": "", "title": "", "image":"", "url": ""})
@@ -36,7 +37,11 @@ const MeetingForm = props => {
 
     return(
 
+
         <Form>
+                    <h1>Create New Meeting</h1>
+                    <div className='form-container'>
+
                     <Form.Group >
                     <Form.Label htmlFor='form-title'>Title: </Form.Label>
                     <Form.Control id='title' type="text" onChange={handleFieldChange}  placeholder='Title'  className='form-title'/>
@@ -59,12 +64,15 @@ const MeetingForm = props => {
 
                     <Form.Control type='text' id='image' onChange={handleFieldChange} placeholder='Image'  className='form-image'/>
                     </Form.Group>
+                    <div className='form-button-container'>
                     <Form.Group controlId="form-meeting">
-                    <Button onClick={()=>(props.history.push('/meetings'))}>Cancel</Button>
+                    <Button className='btn-danger' onClick={()=>(props.history.push('/meetings'))}>Cancel</Button>
                     </Form.Group>
                     <Form.Group controlId="form-meeting">
-                    <Button disabled={isLoading} onClick={handleCreate}>Submit</Button>
+                    <Button className='btn-success' disabled={isLoading} onClick={handleCreate}>Submit</Button>
                     </Form.Group>
+                    </div>
+                    </div>
 
             </Form>
     )

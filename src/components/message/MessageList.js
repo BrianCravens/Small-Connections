@@ -16,7 +16,6 @@ const MessageList = props => {
     const getMessages = () =>{
         return dataManager.getAll('messages')
             .then((messages)=> {
-                console.log(messages)
                 setMessages(messages);
             })
             .catch((err) => console.error('There was an issue with getting all messages:', err))
@@ -67,18 +66,21 @@ const MessageList = props => {
 
 
     return (
-        <div>
+        <>
         {props.toggle? null:
-        <div className= 'MessagesList'>
+        <div className='Messages-banner'>
             <h1>Messages</h1>
+        <div className= 'MessagesList'>
             
             {messages.map((message, idx)=> (<MessageCard setText={setText} key={idx} message={message} toggle={toggle} setToggle={setToggle}/>))}
-            
+        <div className= 'message-input-container'>
         <textarea id='description' value={text?text.description:""} onChange={handleFieldChange} className='message-textarea' type='text' placeholder='Enter Message'></textarea>
             <Button onClick={handleEdit} disabled={isLoading} className='send-message'>Send</Button>
         </div>
-        }       
         </div>
+        </div>
+        } 
+        </>      
         
     )
 }

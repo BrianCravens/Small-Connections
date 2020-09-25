@@ -1,4 +1,5 @@
 import React, { useRef } from "react"
+import{Button, Form} from 'react-bootstrap'
 import "./Login.css"
 import useSimpleAuth from "../../hooks/ui/useSimpleAuth"
 import { Link } from "react-router-dom"
@@ -31,10 +32,11 @@ const Login = props => {
     }
 
     return (
-        <div>
-            {props.toggle? null:
+        <>
+        {props.toggle? null:
         <main style={{ textAlign: "center" }}>
-            <form className="form--login" onSubmit={handleLogin}>
+            <div className='login-container'>
+            <Form className="form--login" onSubmit={handleLogin}>
                 <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
                 <fieldset>
                     <label htmlFor="inputUsername"> Username </label>
@@ -51,16 +53,19 @@ const Login = props => {
                         placeholder="Password"
                         required />
                 </fieldset>
-                <fieldset>
-                    <button type="submit">
+                <div className='button-container'>
+                    <Button className='btn-success' type="submit">
                         Sign in
-                    </button>
+                    </Button>
+                    <div>
                     <Link to="/register">Create Account</Link>
-                </fieldset>
-            </form>
-        </main>
-        }       
+                    </div>
+                </div>
+            </Form>
         </div>
+        </main>
+        }  
+        </>     
     )
 }
 export default Login

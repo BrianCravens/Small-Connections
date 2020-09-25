@@ -1,20 +1,18 @@
 import React, {useState, useEffect} from 'react'
 import dataManager from '../../modules/dataManager'
-import {Form, FormGroup, Label, Input, Button, FormControl} from 'react-bootstrap'
+import {Form, Button} from 'react-bootstrap'
+import './Member.css'
 
 const MemberDetail = props => {
     
     const [member, setMember] = useState({user:{}})
     const [editMember, setEditMember] = useState({user:{}})
     const [editUser, setEditUser] = useState({})
-    const [group, setGroup] = useState({})
     const [currentMember, setCurrentMember] = useState({})
     const [myGroup, setMyGroup] = useState({group:{leader:{}}})
     const [memberGroups, setMemberGroups] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [toggle, setToggle] = useState(false);
-    const [render, setRender] = useState(false)
-    const [admin, setAdmin] = useState(false)
     const currentUser = parseInt(localStorage.getItem("user"))
 
 
@@ -42,14 +40,7 @@ const MemberDetail = props => {
         })
         
     }
-    const getGroup=()=>{
-        if(myGroup.group_id !=null){
-        
-        dataManager.get('groups', myGroup.group_id)
-        .then((group) => {
-            setGroup(group)
-        })}
-    }
+    
 
     const makeAdmin = () => {
         const editAdmin={
@@ -93,7 +84,7 @@ const MemberDetail = props => {
     const handleEdit=(event)=> {
         event.preventDefault()
         setIsLoading(true)
-        console.log(editMember.address)
+        
         const editedMember ={
             id: member.id,
             first_name: editUser.first_name,
@@ -106,9 +97,11 @@ const MemberDetail = props => {
             is_admin: member.is_admin
         }
         dataManager.update('members', editedMember)
-        .then(() => {
-            setIsLoading(false)
-            setToggle(!toggle)
+        .then(()=> {
+            
+                setIsLoading(false)
+                setToggle(!toggle)
+            
         })
         .catch((err) => console.error('There was an issue with updating that member:', err))
     }
@@ -146,7 +139,7 @@ const MemberDetail = props => {
     }, [toggle])
     useEffect(() => {
         getMember();
-    }, [render])
+    }, [])
     useEffect(() => {
         getCurrentMember();
     }, [])
@@ -154,15 +147,9 @@ const MemberDetail = props => {
         getMemberGroups();
     }, [])
     useEffect(() => {
-        setAdmin(member.is_admin)
-    }, [currentMember])
-    useEffect(() => {
         getMemberGroupID()
     }, [memberGroups])
-    useEffect(() => {
-        getGroup()
-        console.log(myGroup)
-    }, [myGroup])
+
 
     return(
         <>
@@ -203,39 +190,60 @@ const MemberDetail = props => {
                     <Form.Label htmlFor='form-image'>Image: </Form.Label>
                     <Form.Control type='text' id='image' onChange={handleFieldChange} placeholder='Image' defaultValue={member.image} className='form-image'/>
                     </Form.Group>
-
+                    <div className='form-button-container'>
                     <Form.Group controlId="form-meeting">
                     <Button disabled={isLoading} onClick={()=>setToggle(!toggle)}>Back</Button>
                     </Form.Group>
 
                     <Form.Group controlId="form-meeting">
-                    <Button disabled={isLoading} onClick={handleEdit}>Submit</Button>
+                    <Button className='btn-success' disabled={isLoading} onClick={handleEdit}>Submit</Button>
                     </Form.Group>
+                    </div>
 
             </Form>
             :
+            <div className='member-banner'>
             <div className="member-details">
-                <div className="member-picture-container">
-                    <img className="member-picture" alt="Member"  src={member.image}/>
-                </div>
-                <div className="member-info">
-                        <h1>{member.user.first_name} {member.user.last_name}</h1>
-                        <h3>{member.address}</h3>
-                        <h3>{member.phone}</h3>
-                        <h3>{member.user.email}</h3>
-                        <h3>{member.birthday}</h3>
-                        <h3>Group: {myGroup.group.name}</h3>
-                </div>
-                {currentUser===member.id || currentMember.is_admin?
-                <button disabled={isLoading} onClick={()=>setToggle(!toggle)}>Edit</button>
-                :null}
-                {currentUser===member.id || myGroup.group.leader.id === currentUser?
-                <button disabled={isLoading} onClick={()=>leaveGroup()}>Leave Group</button>
-                :null}
+                <div className='member-row'>
+                    <div className='picture-container'>
+                    <div className="picture-column">
+                        <div className='member-picture'>
+                            <img className='picture' alt="Member"  src={member.image}/>
+                        </div>     
+                    <div className='info-container'>
+                    <div className="info-column">
+                        <div className="member-info">
+                            <h2>{member.user.first_name} {member.user.last_name}</h2>
+                            <label htmlFor='address'>Address:</label>
+                            <div name='address'>{member.address}</div>
+                            <label htmlFor='phone'>Phone:</label>
+                            <div name='phone'>{member.phone}</div>
+                            <label htmlFor='email'>Email:</label>
+                            <div name='email'>{member.user.email}</div>
+                            <label htmlFor='birthday'>Birthday:</label>
+                            <div name='birthday'>{member.birthday}</div>
+                            <label htmlFor='group'>Group:</label>
 
-                {currentMember.is_admin && member.is_admin===false ? <Button onClick={makeAdmin}>Make Admin</Button>:null}
-                
-                {myGroup.group.leader.id === currentUser && myGroup.group.leader.id != member.id? <Button onClick={makeLeader}>Make Leader</Button>:null}
+                            <div name='group'>{myGroup.group.name}</div>
+                        </div>  
+                    </div>
+                    </div>
+                    </div>
+                    </div> 
+                    </div>
+            <div className='buttons-container'>
+            {currentUser===member.id || currentMember.is_admin?
+            <Button disabled={isLoading} onClick={()=>setToggle(!toggle)}>Edit</Button>
+            :null}
+            {currentUser===member.id || myGroup.group.leader.id === currentUser?
+            <Button className='btn-danger' disabled={isLoading} onClick={()=>leaveGroup()}>Leave Group</Button>
+            :null}
+
+            {currentMember.is_admin && member.is_admin===false ? <Button onClick={makeAdmin}>Make Admin</Button>:null}
+            
+            {myGroup.group.leader.id === currentUser && myGroup.group.leader.id != member.id? <Button className='btn-warning' onClick={makeLeader}>Make Leader</Button>:null}
+            </div>
+            </div>
             </div>
             }
         </> 
