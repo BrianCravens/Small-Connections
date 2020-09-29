@@ -24,7 +24,9 @@ Steps to get started:
 1. `cd` into the directory it creates
 1. `npm install` to build dependencies
 1. `npm start` to run the app in the development mode
+1. Set your browser view on a mobile view as this is designed as a mobile app.
 1. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. This app does require running Small Connections Client Side. For further instructions, please visit: https://github.com/BrianCravens/Small-Connections-API.git
 
 ## Technologies Used
 
