@@ -5,11 +5,36 @@
     padding-top: 5em;
 }
 
+.form--login > fieldset > input[type="username"],
 .form--login > fieldset > input[type="email"],
 .form--login > fieldset > input[type="password"] {
-    width: 25em;
+    width:300px;
 }
 
 input[name="remember"] {
     margin: 1em 0.5em 0 0;
+}
+Form{
+    padding-left:15px;
+    align-items: center;
+    width: 100vw;
+}
+.login-container{
+    padding: 15px;
+    width: 100vw;
+}
+main fieldset, input, label{
+    width: 300px;
+}
+.button-container{
+    padding-top: 15px;
+    width: 300px;
+    display:flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.button-container link{
+    padding-right:15px;
 }

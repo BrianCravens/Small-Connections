@@ -1,11 +1,13 @@
 .MeetingsList{
     display: flex;
     flex-direction: column;
+    padding-top: 50px;
 
 }
 .MeetingsList h1{
     flex: 100%;
     text-align: center;
+    font-weight: bold;
 }
 .meeting-card-container{
     flex-basis: 90%;
@@ -53,4 +55,66 @@
 
 
 
+}
+
+.meeting-details{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 812px;
+    align-content: space-between;
+    text-align: center;
+}
+.meeting-picture-container{
+    height: 300px;
+    width: 100vw;
+    flex-basis:100%
+}
+.meeting-picture{
+    width: 100vw;
+    height: 300px;
+}
+.meeting-info h1{
+    text-align: center;
+    padding:10px
+    
+
+}
+.details{
+    padding: 10px;
+    text-align: left;
+}
+.details label{
+    padding: none;
+    margin: 0;
+    font-weight: bold;
+    font-size: large;
+}
+.details div{
+    font-size: medium;
+    padding-bottom: 15px;
+}
+.meeting-info{
+    text-align: left;
+    flex-basis: 100%;
+}
+.meeting-button-container{
+    display:flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    justify-content: flex-end;
+}
+.meeting-button-container button{
+    font-size: large;
+    font-weight: bold;
+    margin: 2px
+}
+Form{
+    padding-top: 60px;
+}
+.form-container{
+    padding: 15px;
+}
+Form h1{
+    text-align: center;
 }

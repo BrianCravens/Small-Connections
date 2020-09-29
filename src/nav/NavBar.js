@@ -7,20 +7,29 @@ import { FaAlignJustify } from 'react-icons/fa'
 const NavBar = props => {
     const { isAuthenticated, logout } = useSimpleAuth()
     const inGroup = props.inGroup
-    
 
     
-
+    
     return(
         <div className='all-nav-container'>
             <header className='header-container'>
-            <FaAlignJustify className= 'menu-icon' onClick={()=>props.setToggle(!props.toggle)}></FaAlignJustify>
-            <div className='header-title'>Small Connections</div>
+            <div className='header-content'>
+                 <div className='header-icon'>   
+                <FaAlignJustify className= 'menu-icon' onClick={()=>props.setToggle(!props.toggle)}></FaAlignJustify>
+                </div>
+                <div className='header-title'>Small Connections</div>
+                
+                
+                {isAuthenticated()?
+                <div className='header-image'><img alt=""  src={props.member.image}/></div>
+                :<div className='header-image'></div>}
+                
+            </div>
             </header>
             {props.toggle?
                 <nav className="nav-overlay">
                     <ul className="nav-container">
-                     {isAuthenticated() && inGroup ?   
+                     {isAuthenticated() ?   
                     <li>
                         <Link onClick={()=>props.setToggle(!props.toggle)} className='nav-link' to="/members" >Members</Link>
                     </li>:null}

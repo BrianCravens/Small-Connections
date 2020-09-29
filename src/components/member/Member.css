@@ -1,6 +1,7 @@
 .MembersList{
     display: flex;
     flex-direction: column;
+    padding-top: 50px;
 
 }
 .MembersList h1{
@@ -44,3 +45,97 @@
     margin-bottom: none;
     font-family: "Arial Black", Gadget, sans-serif;
 }
+.member-row{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width:100%;
+    margin-right:0;
+    margin-left:0;
+    flex:1
+    
+
+}
+.picture-container{
+    justify-content: center;
+    align-items: center;
+    flex-basis: 100%;
+    padding-top: 50px;
+}
+.info-container{
+    flex-basis: 10%;
+    flex:1
+}
+.picture-column{
+    display:flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    padding-right: 15px;
+    justify-content: center;
+    align-items: center;
+    /* flex:1 */
+}
+.info-column{
+    display:flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    /* flex:1 */
+}
+
+.member-info{
+    font-size: small;
+    
+    
+}
+
+.member-info h2{
+    text-align: center;
+    padding-bottom: 20px;
+}
+.member-info label{
+    font-size: large;
+    font-weight: bold;
+    /* float: left; */
+}
+.member-info div{
+    font-size: medium;
+    padding-bottom: 10px;
+    vertical-align: middle;
+}
+.member-details{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 812px;
+    padding: 5px;
+}
+.picture{
+    border-radius: 20%;
+    height: 175px;
+    width: 175px;
+    
+}
+
+.buttons-container{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    
+}
+.buttons-container button{
+    margin: 2px;
+    font-size: large;
+    font-weight: bold;
+
+}
+.member-banner{
+}
+Form{
+    padding: 15px;
+}
+.form-button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+

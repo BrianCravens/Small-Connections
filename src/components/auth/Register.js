@@ -1,5 +1,6 @@
 import React, { useRef } from "react"
 import { withRouter } from "react-router-dom"
+import {Button} from 'react-bootstrap'
 import useSimpleAuth from "../../hooks/ui/useSimpleAuth"
 import "./Login.css"
 
@@ -108,9 +109,9 @@ const Register = props => {
                         required />
                 </fieldset>
                 <fieldset>
-                    <button type="submit">
+                    <Button className='btn-success' type="submit">
                         Sign in
-                    </button>
+                    </Button>
                 </fieldset>
             </form>
         </main>

@@ -61,18 +61,22 @@ const MessageList = props => {
     }, [toggle])
 
     return (
-        <div>
+        <>
         {props.toggle? null:
-        <div className= 'PrayersList'>
+        <div className='Prayers-banner'>
             <h1>Prayer Requests</h1>
+        
+        <div className= 'PrayersList'>
             
             {prayers.map((prayer, idx)=> (<PrayerCard setText={setText} key={idx} prayer={prayer} toggle={toggle} setToggle={setToggle}/>))}
-            
+        <div className='prayer-input-container'>    
         <textarea id='description' value={text?text.description:""} onChange={handleFieldChange} className='prayer-textarea' type='text' placeholder='Enter Message'></textarea>
             <Button onClick={handleEdit} disabled={isLoading} className='send-prayer'>Send</Button>
         </div>
-        }       
         </div>
+        </div>
+        }       
+        </>
         
     )
 }

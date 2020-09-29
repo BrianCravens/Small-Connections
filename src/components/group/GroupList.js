@@ -7,8 +7,8 @@ import './Group.css'
 
 const GroupList = props => {
     const [groups, setGroups] = useState([]);
-    const [memberGroups, setMemberGroups] = useState([{member:{}}])
-    const [inGroup, setInGroup] = useState(false)
+    // const [memberGroups, setMemberGroups] = useState([{member:{}}])
+    // const [inGroup, setInGroup] = useState(false)
     const [leader, setLeader] = useState({});
     const [admin, setAdmin] = useState(false);
     const currentUser = parseInt(localStorage.getItem("user"))
@@ -22,21 +22,21 @@ const GroupList = props => {
             .catch((err) => console.error('There was an issue with getting all groups:', err))
         
     }
-    const getMemberGroups = () =>{
-        return dataManager.getAll('membergroups/listall')
-            .then((membergroups)=> {
-                setMemberGroups(membergroups);
-            })
-            .catch((err) => console.error('There was an issue with getting all groups:', err))
+    // const getMemberGroups = () =>{
+    //     return dataManager.getAll('membergroups/listall')
+    //         .then((membergroups)=> {
+    //             setMemberGroups(membergroups);
+    //         })
+    //         .catch((err) => console.error('There was an issue with getting all groups:', err))
         
-    }
-    const isInGroup = () => {
-        memberGroups.map(group=>{
-            if (parseInt(group.member.id) === currentUser&&group.is_approved===true){
-                setInGroup(true)
-            }
-        })
-    }
+    // }
+    // const isInGroup = () => {
+    //     memberGroups.map(group=>{
+    //         if (parseInt(group.member.id) === currentUser&&group.is_approved===true){
+    //             setInGroup(true)
+    //         }
+    //     })
+    // }
 
     const isAdmin = () => {
         dataManager.get('members', currentUser)
@@ -52,10 +52,6 @@ const GroupList = props => {
 
     const isLeader = () => {
         setLeader(groups.find(group => group.leader.id === currentUser))
-            
-        
-
-
 
         }
     
@@ -75,12 +71,12 @@ const GroupList = props => {
     useEffect(() =>{
         getGroups();
     }, [])
-    useEffect(() =>{
-        getMemberGroups();
-    }, [])
-    useEffect(() =>{
-        isInGroup();
-    }, [memberGroups])
+    // useEffect(() =>{
+    //     getMemberGroups();
+    // }, [])
+    // useEffect(() =>{
+    //     isInGroup();
+    // }, [memberGroups])
 
     useEffect(() => {
         isLeader();
@@ -95,7 +91,7 @@ const GroupList = props => {
             <div className= 'GroupsList'>
                 <h1>Groups</h1>
                 
-                {toggle && !inGroup?<Button onClick={()=>(props.history.push("/group"))}>Add Group</Button>:null}
+                {toggle && !props.inGroup?<Button onClick={()=>(props.history.push("/group"))}>Add Group</Button>:null}
                 <div className= 'group-card-container'>
                 {groups.map((group)=> (<GroupCard key={group.id} group={group}/>))}
                 </div>

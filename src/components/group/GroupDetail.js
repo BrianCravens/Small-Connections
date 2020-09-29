@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import dataManager from '../../modules/dataManager'
-import {Form, FormGroup, Label, Input, Button, FormControl} from 'react-bootstrap'
+import {Form, Button} from 'react-bootstrap'
+import './Group.css'
 
 
 
@@ -11,7 +12,6 @@ const GroupDetail = props => {
     const [memberGroups, setMemberGroups] = useState([{member:{}}])
     const [kids, setKids] = useState(false)
     const [inGroup, setInGroup] = useState(false)
-    const [isLeader, setIsLeader] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [toggle, setToggle] = useState(false);
 
@@ -43,10 +43,8 @@ const GroupDetail = props => {
         })
     }
     const checkLeader = () => {
-        setIsLeader(false)
         groups.map(group=>{
             if (parseInt(group.leader.id) === currentUser){
-                setIsLeader(true)
                 setInGroup(true)
             }
         })
@@ -158,13 +156,15 @@ const GroupDetail = props => {
                     <Form.Control type='checkbox' id='kids' onChange={()=> setKids(!kids)} placeholder='Image'defaultChecked={group.kids} className='form-kids'/>
                     </Form.Group>
 
+                    <div className="form-button-container">
                     <Form.Group controlId="form-meeting">
                     <Button disabled={isLoading} onClick={()=>setToggle(!toggle)}>Back</Button>
                     </Form.Group>
 
                     <Form.Group controlId="form-meeting">
-                    <Button disabled={isLoading} onClick={handleEdit}>Submit</Button>
+                    <Button className='btn-success' disabled={isLoading} onClick={handleEdit}>Submit</Button>
                     </Form.Group>
+                    </div>
 
             </Form>
             :
@@ -172,21 +172,34 @@ const GroupDetail = props => {
             <div>
             {props.toggle? null:
             <div className="group-details">
-                <div className="group-picture-container">
-                    <img className="group-picture" alt="Group"  src={group.image}/>
-                </div>
                 <div className="group-info">
-                        <h1>{group.name} Group</h1>
-                        <h2>Leader: {group.leader.user.first_name} {group.leader.user.last_name}</h2>
-                        <h3>Address: {group.address}, {group.city} {group.state}</h3>
-                        <h3>Schedule: {group.schedule}</h3>
-                        <h3>Kids: {kids? "YES" : "NO"}</h3>
+                    <div className="group-picture-container">
+                        <img className="group-picture" alt="Group"  src={group.image}/>
+                    </div>
+                    <div className='details'>
+                    <h1>{group.name} Group</h1>
+
+                    <label forhtml='leader'>Leader:</label>
+                    <div name='leader'>{group.leader.user.first_name} {group.leader.user.last_name}</div>
+
+                    <label forhtml='address' >Address:</label>
+                    <div name='address'>{group.address}, {group.city} {group.state}</div>
+
+                    <label forhtml='schedule'>Schedule:</label>
+                    <div name='schedule'>{group.schedule}</div>
+
+                    <label forhtml='kids'>Kids:</label>
+                    <div name='kids'>{kids? "YES" : "NO"}</div>
+                    
+                    </div>
+                </div>
+                        <div className='group-button-container'>
                         {inGroup != true ?
-                        <Button onClick={handleJoin}>Join Group</Button>
+                        <Button className='btn-success' onClick={handleJoin}>Join Group</Button>
                         : null} 
                         {group.leader.id === currentUser?               
-                        <Button disabled={isLoading} onClick={()=>setToggle(!toggle)}>Edit</Button>:null}               
-                </div>
+                        <Button className='btn-primary' disabled={isLoading} onClick={()=>setToggle(!toggle)}>Edit</Button>:null}
+                        </div>               
             </div>
             }       
             </div>
